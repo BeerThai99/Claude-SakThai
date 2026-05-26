@@ -13,15 +13,17 @@ Beer's private Claude Code configuration repository.
 
 ## Skills
 
-| Command | Description |
-|---------|-------------|
-| `/stop-slop-sakthai` | Strip AI writing patterns from prose |
+| Command | Source |
+|---------|--------|
+| `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
 
 ## Adding a Skill
 
-1. Create `.claude/skills/<skill-name>/SKILL.md`
-2. Add reference files under `.claude/skills/<skill-name>/references/`
-3. Commit and merge to `main`
+```bash
+npx skills add <github-owner/repo>
+```
+
+Commit `skills-lock.json` and `.claude/skills/` changes to `main`.
 
 ## GitHub Actions
 

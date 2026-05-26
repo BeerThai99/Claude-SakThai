@@ -21,14 +21,19 @@ When working on any project, this repo's skills and this CLAUDE.md are the basel
 
 ## Available Skills
 
-| Skill | Command | Purpose |
-|-------|---------|---------|
-| stop-slop-sakthai | `/stop-slop-sakthai` | Strip AI writing patterns from prose |
+| Skill | Command | Source |
+|-------|---------|--------|
+| stop-slop | `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
 
 ### Adding New Skills
 
-Place a `SKILL.md` under `.claude/skills/<skill-name>/` and commit to `main`.
-Reference files go in `.claude/skills/<skill-name>/references/`.
+Use the skills CLI:
+
+```bash
+npx skills add <github-owner/repo>
+```
+
+Commit the updated `skills-lock.json` and `.claude/skills/` changes to `main`.
 
 ## Coding Preferences
 
