@@ -5,9 +5,10 @@ It stores persistent skills, settings, and context that apply across all project
 
 ## This Repository
 
-`beerthai99/.github-private` is the central store for:
+`BeerThai99/Claude-SakThai` is the central store for:
 - **Skills** — reusable slash commands under `.claude/skills/`
-- **Global settings** — permissions and hooks under `.claude/settings.json` (when created)
+- **Global settings** — permissions and hooks under `.claude/settings.json`
+- **Session hook** — `.claude/hooks/session-start.sh` runs at session start in remote environments
 - **This file** — context and preferences Claude should always carry
 
 When working on any project, this repo's skills and this CLAUDE.md are the baseline.
