@@ -22,7 +22,7 @@ jobs:
 
       - name: Check required files
         run: |
-          [ -f .claude/skills/stop-slop-sakthai/SKILL.md ] || { echo "Missing SKILL.md"; exit 1; }
+          [ -f .claude/skills/stop-slop/SKILL.md ] || { echo "Missing SKILL.md"; exit 1; }
           [ -f .claude/settings.json ] || { echo "Missing settings.json"; exit 1; }
           [ -x .claude/hooks/session-start.sh ] || { echo "session-start.sh missing or not executable"; exit 1; }
           echo "All required files present"
