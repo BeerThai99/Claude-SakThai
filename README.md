@@ -1,4 +1,4 @@
-# .github-private
+# Claude-SakThai
 
 Beer's private Claude Code configuration repository.
 
@@ -7,6 +7,8 @@ Beer's private Claude Code configuration repository.
 | Path | Purpose |
 |------|---------|
 | `CLAUDE.md` | Global context and preferences loaded at every Claude Code session |
+| `.claude/settings.json` | Hook configuration (SessionStart) |
+| `.claude/hooks/session-start.sh` | Runs at session start to prepare the remote environment |
 | `.claude/skills/` | Custom slash commands available across all projects |
 
 ## Skills
@@ -18,7 +20,13 @@ Beer's private Claude Code configuration repository.
 ## Adding a Skill
 
 1. Create `.claude/skills/<skill-name>/SKILL.md`
-2. Add any reference files under `.claude/skills/<skill-name>/references/`
+2. Add reference files under `.claude/skills/<skill-name>/references/`
 3. Commit and merge to `main`
 
-The skill is available in Claude Code immediately after merge.
+## GitHub Actions
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `claude.yml` | `@claude` mentions | Claude Code action |
+| `CI.yml` | push/PR to main | Validate YAML and check required files |
+| `main.yml` | push | Verify session hook is executable |

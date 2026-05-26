@@ -1,9 +1,12 @@
-name: A workflow for my Hello World file
+name: Session hook smoke test
+
 on: push
+
 jobs:
-  build:
-    name: Hello world action
+  smoke:
+    name: Verify session hook
     runs-on: ubuntu-latest
     steps:
-    - name: Hello world
-      run: echo "Hello, Mona!"
+      - uses: actions/checkout@v4
+      - name: Hook is executable
+        run: test -x .claude/hooks/session-start.sh && echo "OK"

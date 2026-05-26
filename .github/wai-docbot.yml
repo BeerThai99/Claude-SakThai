@@ -1,6 +1,6 @@
-docs_folder: "_docs"
+docs_folder: "docs"
 allowed_base_branches: [main]
 include_extensions: [".md", ".sh", ".yml", ".yaml", ".json"]
 exclude:
   - ".git/**"
-  - "_docs/**"
+  - "docs/**"
