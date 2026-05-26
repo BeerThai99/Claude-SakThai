@@ -23,7 +23,24 @@ When working on any project, this repo's skills and this CLAUDE.md are the basel
 
 | Skill | Command | Source |
 |-------|---------|--------|
-| stop-slop | `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
+| agent-development | `/agent-development` | `anthropics/claude-plugins-public` |
+| build-mcp-app | `/build-mcp-app` | `anthropics/claude-plugins-public` |
+| build-mcp-server | `/build-mcp-server` | `anthropics/claude-plugins-public` |
+| claude-api | `/claude-api` | `anthropics/skills` |
+| claude-automation-recommender | `/claude-automation-recommender` | `anthropics/claude-plugins-public` |
+| claude-md-improver | `/claude-md-improver` | `anthropics/claude-plugins-public` |
+| command-development | `/command-development` | `anthropics/claude-plugins-public` |
+| first-run | `/first-run` | `anthropics/claude-quickstarts` |
+| frontend-design | `/frontend-design` | `anthropics/claude-plugins-public` |
+| hook-development | `/hook-development` | `anthropics/claude-plugins-public` |
+| mcp-integration | `/mcp-integration` | `anthropics/claude-plugins-public` |
+| plugin-settings | `/plugin-settings` | `anthropics/claude-plugins-public` |
+| plugin-structure | `/plugin-structure` | `anthropics/claude-plugins-public` |
+| session-report | `/session-report` | `anthropics/claude-plugins-public` |
+| skill-development | `/skill-development` | `anthropics/claude-plugins-public` |
+| stop-slop | `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` (custom) |
+| webapp-testing | `/webapp-testing` | `anthropics/skills` |
+| writing-hookify-rules | `/writing-hookify-rules` | `anthropics/claude-plugins-public` |
 
 ### Adding New Skills
 

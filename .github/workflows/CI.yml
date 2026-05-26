@@ -26,3 +26,25 @@ jobs:
           [ -f .claude/settings.json ] || { echo "Missing settings.json"; exit 1; }
           [ -x .claude/hooks/session-start.sh ] || { echo "session-start.sh missing or not executable"; exit 1; }
           echo "All required files present"
+
+      - name: Validate skills-lock.json matches installed skills
+        run: |
+          python3 - <<'EOF'
+          import json, os, sys
+          lock = json.load(open("skills-lock.json"))
+          skills_dir = ".claude/skills"
+          locked = set(lock["skills"].keys())
+          installed = set(os.listdir(skills_dir))
+          missing = locked - installed
+          extra = installed - locked
+          ok = True
+          if missing:
+              print(f"In lock but not installed: {sorted(missing)}")
+              ok = False
+          if extra:
+              print(f"Installed but not in lock: {sorted(extra)}")
+              ok = False
+          if ok:
+              print(f"skills-lock.json and .claude/skills/ are in sync ({len(locked)} skills)")
+          sys.exit(0 if ok else 1)
+          EOF
