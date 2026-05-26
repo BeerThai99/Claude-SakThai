@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions: {}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate workflow YAML
+        run: |
+          for f in .github/workflows/*.yml; do
+            echo "Checking $f"
+            python3 -c "import yaml; yaml.safe_load(open('$f'))" && echo "  OK" || { echo "  INVALID YAML: $f"; exit 1; }
+          done
+
+      - name: Check required files
+        run: |
+          [ -f .claude/skills/stop-slop-sakthai/SKILL.md ] || { echo "Missing .claude/skills/stop-slop-sakthai/SKILL.md"; exit 1; }
+          [ -f .claude/settings.json ] || { echo "Missing .claude/settings.json"; exit 1; }
+          [ -x .claude/hooks/session-start.sh ] || { echo ".claude/hooks/session-start.sh missing or not executable"; exit 1; }
+          echo "All required files present"

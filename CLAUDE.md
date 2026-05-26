@@ -5,9 +5,9 @@ It stores persistent skills, settings, and context that apply across all project
 
 ## This Repository
 
-`beerthai99/.github-private` is the central store for:
+`BeerThai99/Claude-SakThai` is the central store for:
 - **Skills** — reusable slash commands under `.claude/skills/`
-- **Global settings** — permissions and hooks under `.claude/settings.json` (when created)
+- **Global settings** — permissions and hooks under `.claude/settings.json`
 - **This file** — context and preferences Claude should always carry
 
 When working on any project, this repo's skills and this CLAUDE.md are the baseline.
@@ -26,7 +26,12 @@ When working on any project, this repo's skills and this CLAUDE.md are the basel
 
 ### Adding New Skills
 
-Place a `SKILL.md` under `.claude/skills/<skill-name>/` and commit to `main`.
+```bash
+npx skills add <github-user>/<repo>
+# commit skills-lock.json and .claude/skills/ changes
+```
+
+Manual fallback: place a `SKILL.md` under `.claude/skills/<skill-name>/` and commit to `main`.
 Reference files go in `.claude/skills/<skill-name>/references/`.
 
 ## Coding Preferences
@@ -59,4 +64,4 @@ When starting work in a new repo, do these first:
 When drafting any written content (docs, commit messages, PR descriptions, comments):
 - Apply stop-slop rules: no throat-clearing, no adverbs, no passive voice
 - State the point directly — no "Here's the thing:" openers
-- Run `/stop-slop-sakthai` on any longer prose before publishing
+- Run `/stop-slop` on any longer prose before publishing
