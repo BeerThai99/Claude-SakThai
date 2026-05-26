@@ -22,5 +22,6 @@ workflow definitions). No application code or user data is stored here.
 | 2026-05-26 | Repository created | Initial `.github-private` setup |
 | 2026-05-26 | Skill added | `stop-slop-sakthai` — AI writing pattern removal |
 | 2026-05-26 | CLAUDE.md added | Global Claude Code configuration |
-| 2026-05-26 | Workflows fixed | Removed invalid `.yml`, fixed `main.yml` broken action reference, corrected `copilot-setup-steps.yml` format |
+| 2026-05-26 | Workflows fixed | Removed invalid `.yml`, fixed `main.yml` broken action reference |
 | 2026-05-26 | Security policy added | This file |
+| 2026-05-26 | Replaced Copilot with Claude | Removed `copilot-setup-steps.yml`; Claude Code handled by `claude.yml` |
