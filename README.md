@@ -13,15 +13,21 @@ Beer's private Claude Code configuration repository.
 
 ## Skills
 
-| Command | Description |
-|---------|-------------|
-| `/stop-slop-sakthai` | Strip AI writing patterns from prose |
+| Command | Source |
+|---------|--------|
+| `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
+| `/algorithmic-art`, `/brand-guidelines`, `/canvas-design`, `/claude-api`, `/doc-coauthoring`, `/docx`, `/frontend-design`, `/internal-comms`, `/mcp-builder`, `/pdf`, `/pptx`, `/skill-creator`, `/slack-gif-creator`, `/template-skill`, `/theme-factory`, `/web-artifacts-builder`, `/webapp-testing`, `/xlsx` | `anthropics/skills` |
+| `/agent-development`, `/command-development`, `/hook-development`, `/mcp-integration`, `/plugin-settings`, `/plugin-structure`, `/skill-development`, `/writing-hookify-rules`, `/claude-opus-4-5-migration` | `anthropics/claude-code` |
+| `/first-run` | `anthropics/claude-quickstarts` |
+| `/access`, `/build-mcp-app`, `/build-mcp-server`, `/build-mcpb`, `/cardputer-buddy`, `/claude-automation-recommender`, `/claude-md-improver`, `/configure`, `/m5-onboard`, `/math-olympiad`, `/playground`, `/session-report` | `anthropics/claude-plugins-public` |
 
 ## Adding a Skill
 
-1. Create `.claude/skills/<skill-name>/SKILL.md`
-2. Add reference files under `.claude/skills/<skill-name>/references/`
-3. Commit and merge to `main`
+```bash
+npx skills add <github-owner/repo>
+```
+
+Commit `skills-lock.json` and `.claude/skills/` changes to `main`.
 
 ## GitHub Actions
 

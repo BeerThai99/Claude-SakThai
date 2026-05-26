@@ -28,3 +28,6 @@ workflow definitions). No application code or user data is stored here.
 | 2026-05-26 | Hardened CI | Replaced boilerplate workflows with YAML validation and required-file checks |
 | 2026-05-26 | Fixed docbot config | Corrected `wai-docbot.yml` docs folder from `_docs` to `docs` |
 | 2026-05-26 | Updated README | Reflects repo rename to `Claude-SakThai` and documents all contents |
+| 2026-05-26 | Migrated to skills CLI | Replaced manual skill install with `npx skills add`; added `skills-lock.json` |
+| 2026-05-26 | Added Anthropic skills | Installed 40 skills from `anthropics/skills`, `anthropics/claude-code`, `anthropics/claude-quickstarts`, `anthropics/claude-plugins-public` |
+| 2026-05-26 | Fixed CI skill path | Updated `CI.yml` to check `.claude/skills/stop-slop/` after CLI migration |
