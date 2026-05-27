@@ -41,7 +41,7 @@ All checks are in `.github/workflows/CI.yml`:
 | Session hook behavior | Hook exits non-zero or prints unexpected output |
 | `settings.json` structure | Invalid JSON or missing hook keys |
 | Skills entry schema | Missing fields, bad `source` format, wrong hash length, missing local `SKILL.md` |
-| CLAUDE.md drift | Skills table in `CLAUDE.md` doesn't match `skills-lock.json` |
+| CLAUDE.md skills table | Skills table in `CLAUDE.md` doesn't match `skills-lock.json` |
 
 Run checks locally before pushing — see [GETTING_STARTED.md](GETTING_STARTED.md).
 
