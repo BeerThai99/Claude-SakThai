@@ -17,7 +17,7 @@ Beer's private Claude Code configuration repository.
 |---------|--------|
 | `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
 | `/claude-api`, `/webapp-testing` | `anthropics/skills` |
-| `/agent-development`, `/command-development`, `/hook-development`, `/mcp-integration`, `/plugin-settings`, `/plugin-structure`, `/skill-development`, `/writing-hookify-rules` | `anthropics/claude-code` |
+| `/agent-development`, `/command-development`, `/hook-development`, `/mcp-integration`, `/plugin-settings`, `/plugin-structure`, `/skill-development`, `/writing-hookify-rules` | `anthropics/claude-plugins-public` |
 | `/first-run` | `anthropics/claude-quickstarts` |
 | `/build-mcp-app`, `/build-mcp-server`, `/claude-automation-recommender`, `/claude-md-improver`, `/frontend-design`, `/session-report` | `anthropics/claude-plugins-public` |
 
@@ -34,5 +34,6 @@ Commit `skills-lock.json` and `.claude/skills/` changes to `main`.
 | Workflow | Trigger | Purpose |
 |----------|---------|-------|
 | `claude.yml` | `@claude` mentions | Claude Code action |
-| `CI.yml` | push/PR to main | Validate YAML and check required files |
-| `main.yml` | push | Verify session hook is executable |
+| `CI.yml` | push/PR to main | Validate config, skills sync, hook behaviour |
+| `preview.yml` | PR to main | Protected preview validation (requires environment approval) |
+| `handle-access-request.yml` | Issue opened/reopened | Acknowledge preview access requests |

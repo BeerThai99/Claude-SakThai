@@ -1,0 +1,32 @@
+name: Preview Access Request
+description: Request access to the preview environment for testing PRs before they merge to main.
+title: "[Access Request] <your GitHub username>"
+labels: [access-request]
+assignees: [BeerThai99]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Preview environment access lets your PRs run the protected **Preview Validation** workflow.
+        @BeerThai99 reviews all requests — access is granted by adding you as a reviewer in GitHub Settings → Environments → preview.
+  - type: input
+    id: github_username
+    attributes:
+      label: GitHub username
+      placeholder: your-username
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why do you need preview access?
+      description: Describe what you are contributing and why you need to test in the preview environment.
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I understand that preview access is granted at the repo owner's discretion and can be revoked at any time.
+          required: true
