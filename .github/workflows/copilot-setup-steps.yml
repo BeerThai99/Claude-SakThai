@@ -1,0 +1,12 @@
+name: Copilot Setup Steps
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4

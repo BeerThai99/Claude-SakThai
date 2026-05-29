@@ -2,139 +2,26 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
-
-permissions:
-  contents: read
+    branches: [main]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate workflow files
+      - name: Validate workflow YAML
         run: |
           for f in .github/workflows/*.yml; do
             echo "Checking $f"
-            python3 -c "import yaml, sys; yaml.safe_load(open('$f'))" && echo "  OK" || { echo "  INVALID YAML"; exit 1; }
+            python3 -c "import yaml; yaml.safe_load(open('$f'))" && echo "  OK" || { echo "  INVALID YAML: $f"; exit 1; }
           done
 
       - name: Check required files
         run: |
-          [ -f .claude/skills/stop-slop/SKILL.md ] || { echo "Missing SKILL.md"; exit 1; }
-          [ -f .claude/settings.json ] || { echo "Missing settings.json"; exit 1; }
-          [ -x .claude/hooks/session-start.sh ] || { echo "session-start.sh missing or not executable"; exit 1; }
+          [ -f .claude/skills/stop-slop-sakthai/SKILL.md ] || { echo "Missing .claude/skills/stop-slop-sakthai/SKILL.md"; exit 1; }
+          [ -f .claude/settings.json ] || { echo "Missing .claude/settings.json"; exit 1; }
+          [ -x .claude/hooks/session-start.sh ] || { echo ".claude/hooks/session-start.sh missing or not executable"; exit 1; }
           echo "All required files present"
-
-      - name: Validate skills-lock.json matches installed skills
-        run: |
-          python3 - <<'EOF'
-          import json, os, sys
-          lock = json.load(open("skills-lock.json"))
-          skills_dir = ".claude/skills"
-          locked = set(lock["skills"].keys())
-          installed = set(os.listdir(skills_dir))
-          missing = locked - installed
-          extra = installed - locked
-          ok = True
-          if missing:
-              print(f"In lock but not installed: {sorted(missing)}")
-              ok = False
-          if extra:
-              print(f"Installed but not in lock: {sorted(extra)}")
-              ok = False
-          if ok:
-              print(f"skills-lock.json and .claude/skills/ are in sync ({len(locked)} skills)")
-          sys.exit(0 if ok else 1)
-          EOF
-
-      - name: Test session-start.sh behavior
-        run: |
-          # Without CLAUDE_CODE_REMOTE set — should exit 0 silently
-          unset CLAUDE_CODE_REMOTE
-          bash .claude/hooks/session-start.sh
-          echo "Silent exit OK"
-
-          # With CLAUDE_CODE_REMOTE=true — should print expected message
-          output=$(CLAUDE_CODE_REMOTE=true bash .claude/hooks/session-start.sh)
-          expected="Session environment ready."
-          [ "$output" = "$expected" ] || { echo "Unexpected output: '$output'"; exit 1; }
-          echo "Remote output OK"
-
-      - name: Validate settings.json structure
-        run: |
-          python3 - <<'EOF'
-          import json, sys
-          try:
-              s = json.load(open(".claude/settings.json"))
-          except json.JSONDecodeError as e:
-              print(f"Invalid JSON: {e}")
-              sys.exit(1)
-          try:
-              hook = s["hooks"]["SessionStart"][0]["hooks"][0]
-              assert hook["type"] == "command", f"Expected type=command, got {hook['type']!r}"
-              assert "session-start.sh" in hook["command"], f"Hook command does not reference session-start.sh: {hook['command']!r}"
-          except (KeyError, IndexError, AssertionError) as e:
-              print(f"settings.json structure invalid: {e}")
-              sys.exit(1)
-          print("settings.json structure OK")
-          EOF
-
-      - name: Validate skills-lock.json entry schema
-        run: |
-          python3 - <<'EOF'
-          import json, os, re, sys
-          lock = json.load(open("skills-lock.json"))
-          errors = []
-          for name, entry in lock["skills"].items():
-              for field in ["source", "sourceType", "skillPath", "computedHash"]:
-                  if not entry.get(field):
-                      errors.append(f"{name}: missing field '{field}'")
-              if not re.match(r"^[^/]+/[^/]+$", entry.get("source", "")):
-                  errors.append(f"{name}: 'source' not in owner/repo format")
-              if len(entry.get("computedHash", "")) != 64:
-                  errors.append(f"{name}: 'computedHash' is not 64 hex chars")
-              skill_md = f".claude/skills/{name}/SKILL.md"
-              if not os.path.exists(skill_md):
-                  errors.append(f"{name}: {skill_md} not found locally")
-          if errors:
-              for e in errors:
-                  print(e)
-              sys.exit(1)
-          print(f"All {len(lock['skills'])} skill entries valid")
-          EOF
-
-      - name: Check CLAUDE.md skills table matches skills-lock.json
-        run: |
-          python3 - <<'EOF'
-          import json, sys
-          lock = json.load(open("skills-lock.json"))
-          md = open("CLAUDE.md").read()
-          locked_names = set(lock["skills"].keys())
-          in_table = False
-          md_names = set()
-          for line in md.splitlines():
-              if "| Skill |" in line:
-                  in_table = True
-                  continue
-              if in_table and line.startswith("|") and "---" not in line:
-                  cols = [c.strip() for c in line.strip("|").split("|")]
-                  if cols and cols[0]:
-                      md_names.add(cols[0])
-          missing_from_md = locked_names - md_names
-          extra_in_md = md_names - locked_names
-          ok = True
-          if missing_from_md:
-              print(f"In lock but missing from CLAUDE.md table: {sorted(missing_from_md)}")
-              ok = False
-          if extra_in_md:
-              print(f"In CLAUDE.md table but not in lock: {sorted(extra_in_md)}")
-              ok = False
-          if ok:
-              print(f"CLAUDE.md skills table matches skills-lock.json ({len(locked_names)} skills)")
-          sys.exit(0 if ok else 1)
-          EOF

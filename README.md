@@ -1,39 +1,27 @@
 # Claude-SakThai
 
-Beer's private Claude Code configuration repository.
+Beer's global Claude Code configuration repository. Skills, hooks, and settings defined here apply automatically to every project opened in Claude Code on the web.
 
-## Contents
+## What's inside
 
 | Path | Purpose |
-|------|-------|
-| `CLAUDE.md` | Global context and preferences loaded at every Claude Code session |
-| `.claude/settings.json` | Hook configuration (SessionStart) |
-| `.claude/hooks/session-start.sh` | Runs at session start to prepare the remote environment |
-| `.claude/skills/` | Custom slash commands available across all projects |
+|---|---|
+| `CLAUDE.md` | Global context — coding preferences, git workflow, new-repo checklist |
+| `.claude/settings.json` | SessionStart hook registration |
+| `.claude/hooks/session-start.sh` | Runs on every remote session start |
+| `.claude/skills/stop-slop-sakthai/` | `/stop-slop` skill — strips AI writing patterns from prose |
+| `.github/workflows/claude.yml` | Triggers Claude Code on `@claude` mentions in PRs and issues |
+| `.github/workflows/CI.yml` | Validates repo structure on every push |
+| `.github/wai-docbot.yml` | Woden AI Docbot configuration |
 
-## Skills
-
-| Command | Source |
-|---------|--------|
-| `/stop-slop` | `beernanthasit-hub/stop-slop-sakthai` |
-| `/claude-api`, `/webapp-testing` | `anthropics/skills` |
-| `/agent-development`, `/command-development`, `/hook-development`, `/mcp-integration`, `/plugin-settings`, `/plugin-structure`, `/skill-development`, `/writing-hookify-rules` | `anthropics/claude-plugins-public` |
-| `/first-run` | `anthropics/claude-quickstarts` |
-| `/build-mcp-app`, `/build-mcp-server`, `/claude-automation-recommender`, `/claude-md-improver`, `/frontend-design`, `/session-report` | `anthropics/claude-plugins-public` |
-
-## Adding a Skill
+## Adding a skill
 
 ```bash
-npx skills add <github-owner/repo>
+npx skills add <github-user>/<repo>
+git add skills-lock.json .claude/skills/
+git commit -m "Add <skill-name> skill"
 ```
 
-Commit `skills-lock.json` and `.claude/skills/` changes to `main`.
+## Owner
 
-## GitHub Actions
-
-| Workflow | Trigger | Purpose |
-|----------|---------|-------|
-| `claude.yml` | `@claude` mentions | Claude Code action |
-| `CI.yml` | push/PR to main | Validate config, skills sync, hook behaviour |
-| `preview.yml` | PR to main | Protected preview validation (requires environment approval) |
-| `handle-access-request.yml` | Issue opened/reopened | Acknowledge preview access requests |
+- **GitHub:** [BeerThai99](https://github.com/BeerThai99) (org) · [beernanthasit-hub](https://github.com/beernanthasit-hub) (public)
